@@ -13,6 +13,8 @@ public class MyClass
 	{
 		int ch;
 		Scanner obj = new Scanner(System.in);
+		try 
+		{
 		do 
 		{
 			displayMenu();
@@ -36,11 +38,19 @@ public class MyClass
 				searchFiles();
 				
 			}
-			else System.exit(0);
-			
+			else if (ch==5)
+				System.exit(0);
+			else 
+				System.out.println("please enter digits between 1 to 5");
 			
 		}
 		while(ch>0);
+		}
+		catch(NumberFormatException Ex)
+		{
+			System.out.println("Please enter only digits");
+		}
+		
 		
 		
 	}
