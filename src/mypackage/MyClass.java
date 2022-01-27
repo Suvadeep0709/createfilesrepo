@@ -11,7 +11,36 @@ public class MyClass
 
 	public static void main(String[] args) 
 	{
-		createFiles();
+		int ch;
+		Scanner obj = new Scanner(System.in);
+		do 
+		{
+			displayMenu();
+			System.out.println("enter your choice");
+			ch=Integer.parseInt(obj.nextLine());
+			
+			if(ch==1)
+			{
+				displayAllFiles();
+			}
+			else if (ch==2)
+			{
+				createFiles();
+			}
+			else if(ch==3)
+			{
+				deleteFiles();
+			}
+			else if(ch==4)
+			{
+				searchFiles();
+				
+			}
+			else System.exit(0);
+			
+			
+		}
+		while(ch>0);
 		
 		
 	}
