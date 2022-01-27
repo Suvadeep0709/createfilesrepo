@@ -1,43 +1,129 @@
 package mypackage;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
 
-public class MyClass {
-	static String path="C:\\Users\\DEVRAJ\\Desktop\\Suvadeep";
+public class MyClass 
+{
+	static final String projectfilespath = "C:\\Users\\DEVRAJ\\Desktop\\Suvadeep";
+	static final String errormessage="Some error occured , please contact admin";
 
 	public static void main(String[] args) 
 	{
+		createFiles();
 		
-		 createFiles();
-
+		
 	}
+
+	public static void displayMenu()
+	{
+		System.out.println("===========================================================");
+		System.out.println("\t\tWelcome to LockedMe.Com");
+		System.out.println("\t\tDesigned by Suvadeep Mukherjee");
+		System.out.println("============================================================");
+		System.out.println("\t\t1.Display all Files");
+		System.out.println("\t\t2.Add a new file");
+		System.out.println("\t\t3.Delete a file");
+		System.out.println("\t\t4.Search for a file");
+		System.out.println("\t\t5.exit");
+	}
+	
+	public static void displayAllFiles()
+	{
+		File file = new File(projectfilespath);
+		String[] filelist=file.list();
+		
+		for (String str:filelist)
+		{
+			System.out.println(str);
+		}
+	}
+	public static void deleteFiles()
+	{
+		Scanner obj = new Scanner(System.in);
+		String fileName;
+		try
+			{
+				System.out.println("Enter the file name to be deleted");
+				fileName=obj.nextLine();
+				File file= new File(projectfilespath+"\\"+fileName);
+				
+				if (file.exists())
+				{
+					file.delete();
+					System.out.println(fileName +" deleted succesfully");
+				}
+					
+					else 
+						System.out.println("File do not exist");
+		    }
+		catch(Exception Ex)
+		{
+			System.out.println(errormessage);
+		}
+		
+     }
+	
+	public static void searchFiles()
+	{
+		Scanner obj = new Scanner(System.in);
+		String fileName;
+		System.out.println("Enter the file name to be searched");
+		fileName=obj.nextLine();
+				
+		File directory =new File( projectfilespath);
+		String [] flist = directory.list();
+		int flag = 0;
+        if (flist == null) 
+	        {
+	            System.out.println("Empty directory.");
+	        }
+        else 
+        {
+        	for (int i=0;i<flist.length;i++)
+        	{
+        		String filename=flist[i];
+        		if (filename.equalsIgnoreCase(fileName)) 
+        		{
+                    System.out.println(filename + " found");
+                    flag = 1;
+                }
+        	}
+        		
+        }
+        if (flag==0)
+        {
+        	System.out.println("File not found");
+        }
+	}
+	
 	public static void createFiles()
 	{
 		try 
 		{
-		Scanner obj = new Scanner(System.in);
+			
 		String fileName;
-		System.out.println("Enter file name");
+		Scanner obj=new Scanner(System.in);
+		System.out.println("Enter the filename");
 		fileName=obj.nextLine();
-		int linesCount;
-		System.out.println("Enter number of lines ");
-		linesCount=Integer.parseInt(obj.nextLine());
-		FileWriter mywriter = new FileWriter(path+"\\"+fileName);
-		for(int i=1;i<=linesCount;i++)
+		int linescount;
+		System.out.println("Enter the number of lines");
+		linescount=Integer.parseInt(obj.nextLine());
+		FileWriter myWriter = new FileWriter(projectfilespath+"\\"+fileName);
+		for (int i=1;i<=linescount;i++)
 		{
-			System.out.println("enter the line");
-			mywriter.write(obj.nextLine()+"\n");
+			System.out.println("Enter the line :");
+			myWriter.write(obj.nextLine()+"\n");
 		}
-		System.out.println("File created succesfully");
-		mywriter.close();
-		obj.close();
+		
+	      myWriter.close();
+	      System.out.println("Successfully wrote to the file.");
 		}
 		catch(Exception Ex)
 		{
-			System.out.println("Some error occured , please contact admin");
+			System.out.println(errormessage);
 		}
 		
 	}
-
 }
